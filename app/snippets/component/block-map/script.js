@@ -1,5 +1,4 @@
-var $ = window.jQuery
-var geo
+let geo
 
 class BlockMap extends window.HTMLElement {
   constructor () {

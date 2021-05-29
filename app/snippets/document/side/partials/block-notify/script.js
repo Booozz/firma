@@ -1,4 +1,4 @@
-var $ = window.jQuery
+// var $ = window.jQuery
 
 class BlockNotify extends window.HTMLElement {
   constructor (...args) {

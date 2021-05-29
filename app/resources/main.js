@@ -1,1 +1,1 @@
-// console.log('### MAIN.JS ###')
+const $ = window.jQuery

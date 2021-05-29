@@ -1,4 +1,3 @@
-var $ = window.jQuery
 const { disableBodyScroll, enableBodyScroll } = window.bodyScrollLock
 const Headroom = window.Headroom
 
