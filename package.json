@@ -4,41 +4,14 @@
     "version": "2.0.0",
     "main": "gulpfile.js",
     "scripts": {
-        "start": ".\\run\\start.ps1 $env:npm_package_name development",
-        "start.debug": ".\\run\\start.ps1 $env:npm_package_name development debug",
-        "build": ".\\run\\build.ps1 $env:npm_package_name production",
-        "build.debug": ".\\run\\build.ps1 $env:npm_package_name production debug",
-        "build.preview": ".\\run\\build.ps1 $env:npm_package_name staging",
-        "build.preview.debug": ".\\run\\build.ps1 $env:npm_package_name staging debug",
-        "clone": ".\\run\\clone.ps1 $env:npm_package_name",
-        "deploy": ".\\run\\deploy.ps1 $env:npm_package_name production",
-        "deploy.full": ".\\run\\deploy.ps1 $env:npm_package_name production full",
-        "deploy.preview": ".\\run\\deploy.ps1 $env:npm_package_name staging",
-        "deploy.preview.full": ".\\run\\deploy.ps1 $env:npm_package_name staging full"
-    },
-    "browserslist": {
-        "production": [
-            "> 1%",
-            "last 2 versions",
-            "Firefox ESR"
-        ],
-        "legacyBrowsers": [
-            "> 1%",
-            "last 2 versions",
-            "Firefox ESR"
-        ],
-        "modernBrowsers": [
-            "last 2 Chrome versions",
-            "not Chrome < 60",
-            "last 2 Safari versions",
-            "not Safari < 10.1",
-            "last 2 iOS versions",
-            "not iOS < 10.3",
-            "last 2 Firefox versions",
-            "not Firefox < 54",
-            "last 2 Edge versions",
-            "not Edge < 15"
-        ]
+        "start": "$env:NODE_ENV = 'development'; .\\run\\start.ps1",
+        "build": "$env:NODE_ENV = 'production'; .\\run\\build.ps1",
+        "build-staging": "$env:NODE_ENV = 'staging'; .\\run\\build.ps1",
+        "clone": ".\\run\\clone.ps1",
+        "deploy": "$env:NODE_ENV = 'production'; .\\run\\deploy.ps1",
+        "deploy-full": "$env:NODE_ENV = 'production'; .\\run\\deploy.ps1 -- full",
+        "deploy-staging": "$env:NODE_ENV = 'staging'; .\\run\\deploy.ps1",
+        "deploy-staging-full": "$env:NODE_ENV = 'staging'; .\\run\\deploy.ps1 -- full"
     },
     "devDependencies": {
         "@vue/component-compiler-utils": "3.2.2",
@@ -72,6 +45,30 @@
         "body-scroll-lock": "3.1.5",
         "headroom.js": "0.12.0",
         "jquery": "3.6.0"
+    },
+    "browserslist": {
+        "production": [
+            "> 1%",
+            "last 2 versions",
+            "Firefox ESR"
+        ],
+        "legacyBrowsers": [
+            "> 1%",
+            "last 2 versions",
+            "Firefox ESR"
+        ],
+        "modernBrowsers": [
+            "last 2 Chrome versions",
+            "not Chrome < 60",
+            "last 2 Safari versions",
+            "not Safari < 10.1",
+            "last 2 iOS versions",
+            "not iOS < 10.3",
+            "last 2 Firefox versions",
+            "not Firefox < 54",
+            "last 2 Edge versions",
+            "not Edge < 15"
+        ]
     },
     "stylelint": {
         "extends": "./.stylelintrc",

@@ -1,10 +1,10 @@
 Write-Host '### TASK ### BUILD ###'
 Write-Host
 
-$env:NODE_ENV=$Args[1]
+$env:DEBUG = $False
 
-if ($Args[2] -match 'debug') {
-    $env:NODE_DEBUG="*"
+if ($Args[0] -match 'debug') {
+  $env:DEBUG = $True
 }
 
 Import-Module '.\run\module\env.psm1'
@@ -17,8 +17,17 @@ npx stylelint './app/snippets/**/*.scss' './app/resources/**/*.scss'
 npx eslint './app/resources/main.js' './app/resources/panel.js' './app/snippets/**/script.js'
 
 Write-Host 'BUILD'
+Write-Host
 
-gulp
+if ($env:DEBUG -eq $True) {
+  gulp --verbose
+}
+Else {
+  gulp
+}
 
 Update-Composer -Mode 'Clear'
+
+Write-Host
 Write-Host 'COMPLETE'
+Write-Host
