@@ -13,9 +13,8 @@ const terser = require('gulp-terser')
 const imagemin = require('gulp-imagemin')
 const favicon = require('favicons').stream
 const cache = require('gulp-cache')
-const scss = require('gulp-sass')
+const scss = require('gulp-sass')(require('sass'))
 const sync = require('browser-sync')
-const sass = require('sass')
 const del = require('del')
 const Parcel = require('parcel-bundler')
 
@@ -26,8 +25,6 @@ const config = require('./config')
 ////////////////////////////////////////////////////////////////////////////////
 
 const STATE_PLUGINS = (typeof config.plugins !== 'undefined' && config.plugins.length > 0) ? true : false
-
-console.log('DEBUG:', process.env.DEBUG)
 
 ////////////////////////////////////////////////////////////////////////////////
 // BROWSERSYNC
@@ -98,7 +95,7 @@ function process__vendor () {
   return src(config.vendor.src)
     .pipe(gulpif(process.env.DEBUG === 'True', debug({ title: '## VENDOR:' })))
     .pipe(concat('vendor.js'))
-    .pipe(gulpif((process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging'), terser()))
+    .pipe(gulpif(!process.env.NODE_ENV === 'development', terser()))
     .pipe(dest(config.vendor.dest))
 }
 
@@ -112,25 +109,25 @@ const vendor = series(clean__vendor, process__vendor)
 
 // CLEAN -------------------------------------------------------------
 
-function clean__scripts__main () { return del(config.path.dist + config.path.scripts + '{main,main-legacy}.js') }
-function clean__scripts__panel () { return del(config.path.dist + config.path.scripts + 'panel.js') }
+function clean__scripts__main () { return del(config.path.dist + config.path.scripts + '{main,main-legacy}.{js,js.map}') }
+function clean__scripts__panel () { return del(config.path.dist + config.path.scripts + 'panel.{js,js.map}') }
 
 // PROCESS -------------------------------------------------------------
 
 function process__scripts__main () {
-  return src([config.path.src + config.path.resources + 'main.js', config.path.src + config.path.snippets + '**/script.js'], { sourcemaps: !process.env.NODE_ENV === 'production' ? (!process.env.NODE_ENV === 'staging' ? true : false) : false })
+  return src([config.path.src + config.path.resources + 'main.js', config.path.src + config.path.snippets + '**/script.js'], { sourcemaps: true })
     .pipe(gulpif(process.env.DEBUG === 'True', debug({ title: '## MAIN:' })))
     .pipe(concat('main.js'))
-    .pipe(gulpif((process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging'), terser()))
-    .pipe(dest(config.path.dist + config.path.scripts, { sourcemaps: !process.env.NODE_ENV === 'production' ? (!process.env.NODE_ENV === 'staging' ? '.' : false) : false }))
+    .pipe(gulpif(!process.env.NODE_ENV === 'development', terser()))
+    .pipe(dest(config.path.dist + config.path.scripts, { sourcemaps: process.env.NODE_ENV === 'development' ? true : '.' }))
 }
 
 function process__scripts__panel () {
-  return src(config.path.src + config.path.resources + 'panel.js', { sourcemaps: !process.env.NODE_ENV === 'production' ? (!process.env.NODE_ENV === 'staging' ? true : false) : false })
+  return src(config.path.src + config.path.resources + 'panel.js', { sourcemaps: true })
     .pipe(gulpif(process.env.DEBUG === 'True', debug({ title: '## MAIN:' })))
     .pipe(concat('panel.js'))
-    .pipe(gulpif((process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging'), terser()))
-    .pipe(dest(config.path.dist + config.path.scripts, { sourcemaps: !process.env.NODE_ENV === 'production' ? (!process.env.NODE_ENV === 'staging' ? '.' : false) : false }))
+    .pipe(gulpif(!process.env.NODE_ENV === 'development', terser()))
+    .pipe(dest(config.path.dist + config.path.scripts, { sourcemaps: process.env.NODE_ENV === 'development' ? true : '.' }))
 }
 
 // WATCH -------------------------------------------------------------
@@ -156,11 +153,10 @@ function clean__styles () { return del(config.path.dist + config.path.styles + '
 // PROCESS -------------------------------------------------------------
 
 function process__styles () {
-  scss.compiler = sass
-  return src(config.path.src + config.path.resources + '{main,panel}.scss', { sourcemaps: !process.env.NODE_ENV === 'production' ? (!process.env.NODE_ENV === 'staging' ? true : false) : false })
+  return src(config.path.src + config.path.resources + '{main,panel}.scss', { sourcemaps: true })
     .pipe(gulpif(process.env.DEBUG === 'True', debug({ title: '## STYLE:' })))
-    .pipe(scss({ outputStyle: process.env.NODE_ENV === 'production' ? (process.env.NODE_ENV === 'staging' ? 'compressed' : 'expanded') : 'expanded' }).on('error', scss.logError))
-    .pipe(dest(config.path.dist + config.path.styles, { sourcemaps: !process.env.NODE_ENV === 'production' ? (!process.env.NODE_ENV === 'staging' ? '.' : false) : false }))
+    .pipe(scss({ outputStyle: !process.env.NODE_ENV === 'development' ? 'compressed' : 'expanded' }).on('error', scss.logError))
+    .pipe(dest(config.path.dist + config.path.styles, { sourcemaps: process.env.NODE_ENV === 'development' ? true : '.' }))
 }
 
 // WATCH -------------------------------------------------------------
@@ -224,7 +220,7 @@ function copy__dotenv () {
 }
 
 function copy__license () {
-  return src(config.path.secure + config.path.license + `/.license.${process.env.NODE_ENV}`)
+  return src(config.path.secure + config.path.license + `.license.${process.env.NODE_ENV}`)
     .pipe(gulpif(process.env.DEBUG === 'True', debug({ title: '## LICENSE:' })))
     .pipe(rename('.license'))
     .pipe(dest(config.path.dist + config.path.site + config.path.configs))
@@ -378,10 +374,10 @@ function process__favicons () {
       path: '/' + config.path.assets + config.path.favicons,
       appName: 'Glas & Gebäudereinigung - Uwe Schramm',
       appShortName: 'Schramm Reinigung',
-      appDescription: pkg.description,
+      appDescription: process.env.npm_package_description,
       url: config.host.live,
-      version: pkg.version,
-      developerName: pkg.author,
+      version: process.env.npm_package_version,
+      developerName: process.env.npm_package_author,
       developerURL: config.host.live,
       lang: 'de-DE',
       display: 'browser',
@@ -397,7 +393,7 @@ function process__favicons () {
       pipeHTML: true,
       replace: true,
       icons: {
-        android: process.env.NODE_ENV === 'development' ? false : true,
+        android: process.env.NODE_ENV === 'development' ? true : true,
         appleIcon: process.env.NODE_ENV === 'development' ? false : true,
         appleStartup: process.env.NODE_ENV === 'development' ? false : true,
         coast: process.env.NODE_ENV === 'development' ? false : true,
@@ -419,18 +415,18 @@ function copy__fonts () {
 // WATCH -------------------------------------------------------------
 
 function watch__assets () {
+  watch(config.path.src + config.path.resources + config.path.assets + config.path.fonts + '**/*.{woff,woff2}', series(fonts, reload))
   watch(config.path.src + config.path.resources + config.path.assets + config.path.images + '**/*.{png,jpg,jpeg,gif}', series(images, reload))
   watch(config.path.src + config.path.resources + config.path.assets + config.path.icons + '**/*.svg', series(icons, reload))
   watch(config.path.src + config.path.resources + config.path.assets + config.path.favicons + 'favicon_src.png', series(favicons, reload))
-  watch(config.path.src + config.path.resources + config.path.assets + config.path.fonts + '**/*.{woff,woff2}', series(fonts, reload))
 }
 
 // COMPOSITION -------------------------------------------------------------
 
+const fonts = series(clean__fonts, copy__fonts)
 const images = series(clean__images, process__images)
 const icons = series(clean__icons, process__icons)
 const favicons = series(clean__favicons, process__favicons)
-const fonts = series(clean__fonts, copy__fonts)
 
 ////////////////////////////////////////////////////////////////////////////////
 // PLUGINS
@@ -470,8 +466,8 @@ function process__plugins_vue (done) {
         outDir: config.path.dist + config.path.site + config.path.plugins + plugin,
         outFile: 'index.js',
         watch: false,
-        minify: process.env.NODE_ENV === 'production' ? (!process.env.NODE_ENV === 'staging' ? false : true) : false,
-        sourceMaps: !process.env.NODE_ENV === 'production' ? (!process.env.NODE_ENV === 'staging' ? true : false) : false,
+        minify: !process.env.NODE_ENV === 'development' ? true : false,
+        sourceMaps: process.env.NODE_ENV === 'development' ? true : false,
         cache: false,
         contentHash: false,
         autoInstall: false,
@@ -506,9 +502,9 @@ const plugins = series(clean__plugins, process__plugins_php, process__plugins_vu
 ////////////////////////////////////////////////////////////////////////////////
 
 const DATA = series(content)
-const LOGIC = series(dotenv, application, enviroments, htaccess, configs, languages, blueprints, collections, controllers, snippets, templates, license, index, vendor)
-const STYLE = series(styles, scripts__main, scripts__panel)
-const ASSET = series(images, icons, favicons, fonts)
+const LOGIC = parallel(dotenv, application, enviroments, htaccess, configs, languages, blueprints, collections, controllers, snippets, templates, license, index, vendor)
+const STYLE = parallel(styles, scripts__main, scripts__panel)
+const ASSET = series(fonts, images, icons, favicons)
 const PLUGIN = series(plugins)
 const SEO = series(robots)
 const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__plugins, watch__content)) : series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))

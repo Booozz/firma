@@ -9,7 +9,6 @@ Function TransferHandler {
 
     if ($Switch -eq 'Env') {
 
-        Write-Host
         Write-Host "# $((Get-Culture).TextInfo.ToUpper($Switch)) # TRANSFER"
         Write-Host
 
@@ -45,7 +44,7 @@ Function TransferHandler {
         Write-Host "# $((Get-Culture).TextInfo.ToUpper($Switch)) # TRANSFER"
         Write-Host
 
-        $FileMasks = '.*', '*.php', '*.js', '*.css', '*.txt'
+        $FileMasks = '.*', '*.php', '*.js', '*.css', '*.txt', '*.map'
 
         foreach ($Mask in $FileMasks) {
 

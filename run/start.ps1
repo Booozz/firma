@@ -7,9 +7,30 @@ if ($Args[0] -match 'debug') {
   $env:DEBUG = $True
 }
 
-Import-Module '.\run\module\env.psm1'
-Update-Composer -Mode 'Init'
+Write-Host 'COMPOSER'
+Write-Host
 
+if ((Test-Path '.\dist\composer.json') -and (Test-Path '.\dist\composer.lock')) {
+
+    Write-Host 'Removing..'
+
+    Remove-Item '.\dist\composer.*'
+
+    Write-Host 'Updating..'
+    Write-Host
+
+    Copy-Item '.\composer.*' -Destination '.\dist'
+}
+Else {
+    Write-Host 'Updating..'
+    Write-Host
+
+    Copy-Item '.\composer.*' -Destination '.\dist'
+}
+
+composer update -d '.\dist' --root-reqs
+
+Write-Host
 Write-Host 'RUN'
 Write-Host
 

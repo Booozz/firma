@@ -6,16 +6,16 @@
     "scripts": {
         "start": "$env:NODE_ENV = 'development'; .\\run\\start.ps1",
         "build": "$env:NODE_ENV = 'production'; .\\run\\build.ps1",
-        "build-staging": "$env:NODE_ENV = 'staging'; .\\run\\build.ps1",
+        "build:staging": "$env:NODE_ENV = 'staging'; .\\run\\build.ps1",
         "clone": ".\\run\\clone.ps1",
         "deploy": "$env:NODE_ENV = 'production'; .\\run\\deploy.ps1",
-        "deploy-full": "$env:NODE_ENV = 'production'; .\\run\\deploy.ps1 -- full",
-        "deploy-staging": "$env:NODE_ENV = 'staging'; .\\run\\deploy.ps1",
-        "deploy-staging-full": "$env:NODE_ENV = 'staging'; .\\run\\deploy.ps1 -- full"
+        "deploy:full": "$env:NODE_ENV = 'production'; .\\run\\deploy.ps1 -- full",
+        "deploy:staging": "$env:NODE_ENV = 'staging'; .\\run\\deploy.ps1",
+        "deploy:staging:full": "$env:NODE_ENV = 'staging'; .\\run\\deploy.ps1 -- full"
     },
     "devDependencies": {
         "@vue/component-compiler-utils": "3.2.2",
-        "browser-sync": "2.26.14",
+        "browser-sync": "2.27.3",
         "del": "6.0.0",
         "eslint": "7.29.0",
         "eslint-config-standard": "16.0.3",
@@ -32,7 +32,7 @@
         "gulp-if": "3.0.0",
         "gulp-imagemin": "7.1.0",
         "gulp-rename": "2.0.0",
-        "gulp-sass": "4.1.0",
+        "gulp-sass": "5.0.0",
         "gulp-terser": "2.0.1",
         "parcel-bundler": "1.12.5",
         "sass": "1.35.1",

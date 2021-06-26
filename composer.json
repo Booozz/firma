@@ -7,11 +7,14 @@
         "sylvainjule/matomo": "1.0.6",
         "vlucas/phpdotenv": "5.3.0"
     },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.6.0"
+    },
     "config": {
-        "vendor-dir": "dist/vendor"
+        "optimize-autoloader": true
     },
     "extra": {
-        "kirby-cms-path": "dist/kirby",
-        "kirby-plugin-path": "dist/site/plugins"
+        "kirby-cms-path": "kirby",
+        "kirby-plugin-path": "site/plugins"
     }
 }

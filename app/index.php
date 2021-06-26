@@ -1,7 +1,6 @@
 <?php
-include '../vendor/autoload.php';
-
-require_once dirname(__DIR__) . '/config/application.php';
+require '../kirby/bootstrap.php';
+require_once '../config/application.php';
 
 $kirby = new Kirby([
     'urls' => [
@@ -10,7 +9,7 @@ $kirby = new Kirby([
     ],
     'roots' => [
         'index'    => __DIR__,
-        'base'     => $base    = dirname(__DIR__),
+        'base'     => $base = dirname(__DIR__),
         'content'  => $base . '/content',
         'site'     => $base . '/site',
         'kirby'    => $base . '/kirby',

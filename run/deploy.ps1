@@ -1,14 +1,11 @@
 Write-Host '### TASK ### DEPLOY ###'
 Write-Host
 
-$Env:APP_NAME = $Args[0]
-$Env:NODE_ENV = $Args[1]
-
 # DIAGNOSTICS
 $Timer = [system.diagnostics.stopwatch]::startNew()
 
 # ARGUMENTS
-if ($Args[2] -eq 'full') { $Sets = @('Env', 'Config', 'Public', 'Site', 'Kirby', 'Vendor') } else { $Sets = @('Env', 'Config', 'Public', 'Site') }
+if ($Args[0] -eq 'full') { $Sets = @('Env', 'Config', 'Public', 'Site', 'Kirby', 'Vendor') } else { $Sets = @('Env', 'Config', 'Public', 'Site') }
 
 try {
 
@@ -27,7 +24,7 @@ try {
 
     $usr = if ($Env:NODE_ENV -eq 'staging') { $Config.SESSION_USER_PREVIEW } else { $Config.SESSION_USER }
     $hsh = if ($Env:NODE_ENV -eq 'staging') { $Config.SESSION_HASH_PREVIEW } else { $Config.SESSION_HASH }
-    $key = if ($Env:NODE_ENV -eq 'staging') { 'T:\__configs\M-1\sites\' + $Env:APP_NAME + '\auth\staging' } else { 'T:\__configs\M-1\sites\' + $Env:APP_NAME + '\auth\production' }
+    $key = if ($Env:NODE_ENV -eq 'staging') { 'T:\__configs\M-1\sites\' + $Env:npm_package_name + '\auth\staging' } else { 'T:\__configs\M-1\sites\' + $Env:npm_package_name + '\auth\production' }
     $pw = $hsh | ConvertTo-SecureString -Key (Get-Content $key)
 
     # OPTIONS
@@ -63,8 +60,8 @@ try {
         $WinSCP.ExecutablePath = $winSCPexec
 
         # LOG
-        $WinSCP.SessionLogPath = $Env:Onedrive + '\_mmrhcs\_logs\_winscp\m1.winscp.' + $Env:APP_NAME + '.deploy.log'
-        $WinSCP.DebugLogPath = $Env:Onedrive + '\_mmrhcs\_logs\_winscp\m1.winscp.' + $Env:APP_NAME + '.deploy.debug.log'
+        $WinSCP.SessionLogPath = $Env:Onedrive + '\_mmrhcs\_logs\_winscp\m1.winscp.' + $Env:npm_package_name + '.deploy.log'
+        $WinSCP.DebugLogPath = $Env:Onedrive + '\_mmrhcs\_logs\_winscp\m1.winscp.' + $Env:npm_package_name + '.deploy.debug.log'
         $WinSCP.DebugLogLevel = '-1'
         $WinSCP.add_FileTransferred( { LogTransferredFiles($_) })
 
