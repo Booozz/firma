@@ -12,20 +12,20 @@ Write-Host
 
 if ((Test-Path '.\dist\composer.json') -and (Test-Path '.\dist\composer.lock')) {
 
-    Write-Host 'Removing..'
+  Write-Host 'Removing..'
 
-    Remove-Item '.\dist\composer.*'
+  Remove-Item '.\dist\composer.*'
 
-    Write-Host 'Updating..'
-    Write-Host
+  Write-Host 'Updating..'
+  Write-Host
 
-    Copy-Item '.\composer.*' -Destination '.\dist'
+  Copy-Item '.\composer.*' -Destination '.\dist'
 }
 Else {
-    Write-Host 'Updating..'
-    Write-Host
+  Write-Host 'Updating..'
+  Write-Host
 
-    Copy-Item '.\composer.*' -Destination '.\dist'
+  Copy-Item '.\composer.*' -Destination '.\dist'
 }
 
 composer update -d '.\dist' --root-reqs
