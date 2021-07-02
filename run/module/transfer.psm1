@@ -176,7 +176,6 @@ Function ActionHandler {
 
             while ($Done -eq $Null) {
 
-                # $Removal = $Session.RemoveFiles('/.env__del')
                 $Removal = $Session.RemoveFiles('*.*__del')
 
                 if ($Removal.IsSuccess) {
@@ -208,7 +207,7 @@ Function ActionHandler {
 
             foreach ($File in $Files) {
 
-                if ($File.FullName -notmatch "__up$") {
+                if ($File.FullName -notmatch "__up$" -AND $File.FullName -notmatch "metrics" -AND $File.FullName -notmatch "media") {
 
                     $Session.MoveFile($File.FullName, $File.FullName + '__del')
 
