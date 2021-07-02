@@ -1,4 +1,3 @@
-const { disableBodyScroll, enableBodyScroll } = window.bodyScrollLock
 const Headroom = window.Headroom
 
 class NavigationMain extends window.HTMLElement {
@@ -24,15 +23,14 @@ class NavigationMain extends window.HTMLElement {
   }
 
   resolveElements () {
+    this.$html = $('.app')
     this.$menu = $('.menu', this)
   }
 
   connectedCallback () {
-    // console.log('### NAVIGATION-MAIN - SCRIPT.JS ###')
-
     const headroom = new Headroom(this.$.get(0), {
       offset: 100,
-      tolerance: 0, // or { down: 0, up: 0 }
+      tolerance: 0,
       classes: {
         initial: 'headroom',
         pinned: 'headroom-isPinned',
@@ -46,11 +44,7 @@ class NavigationMain extends window.HTMLElement {
 
   toggleMenu (e) {
     this.$.toggleClass('snippet-isOpen')
-    if (this.$.hasClass('snippet-isOpen')) {
-      disableBodyScroll(this.$menu.get(0))
-    } else {
-      enableBodyScroll(this.$menu.get(0))
-    }
+    this.$html.toggleClass('app_menu')
   }
 }
 
