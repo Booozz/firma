@@ -1,4 +1,4 @@
 <?php
 
-$_SERVER['APP_DEBUG'] = true;
+$_SERVER['APP_DEBUG'] = false;
 $_SERVER['MATOMO'] = false;

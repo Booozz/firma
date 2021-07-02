@@ -23,12 +23,11 @@ ServerSignature Off
   # block direct access to all files in the site folder, text files in the content folder and to kirby and the panel sources
   RewriteRule ^content/(.*)\.(txt|md|mdown)$ index.php [L]
   RewriteRule ^config/(.*) index.php [L]
+  RewriteRule ^kirby/(.*) index.php [L]
   RewriteRule ^site/(.*) index.php [L]
 
   # Enable authentication header
   SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
-
-  RewriteRule ^kirby/(.*) index.php [L]
 
   # make site links work
   RewriteCond %{REQUEST_FILENAME} !-f

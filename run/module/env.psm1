@@ -1,4 +1,4 @@
-Function GetEnvConfig {
+function GetEnvConfig {
 
     $localEnvFile = ".env"
     $conf = New-Object -TypeName psobject
@@ -18,53 +18,4 @@ Function GetEnvConfig {
     }
 
     return $conf
-}
-
-function Update-Composer {
-    [CmdletBinding()]
-
-    param (
-        [Parameter(Mandatory)] [ValidateSet('Clear','Init')] [String]$Mode
-    )
-
-    if ($Mode -eq 'Init') {
-
-        Write-Host 'INITIALIZE'
-
-        if ($Env:NODE_ENV -ne 'development') {
-
-            if (Test-Path '.\app\composer.json') {
-
-                Write-Host 'WORKING..'
-
-                Copy-Item '.\app\composer.json' -Destination '.\dist'
-            }
-
-            composer update -d '.\dist'
-
-        } else {
-
-            Write-Host 'WORKING..'
-
-            composer update -d '.\' --root-reqs
-        }
-
-        return
-    }
-
-    if ($Mode -eq 'Clear') {
-
-        Write-Host 'CLEANUP'
-
-        composer install -d '.\dist' --no-dev
-
-        if (Test-Path '.\dist\composer.*') {
-
-            Write-Host 'WORKING..'
-
-            Remove-Item '.\dist\composer.*'
-        }
-
-        return
-    }
 }

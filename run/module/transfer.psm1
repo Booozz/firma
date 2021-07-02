@@ -9,7 +9,6 @@ Function TransferHandler {
 
     if ($Switch -eq 'Env') {
 
-        Write-Host
         Write-Host "# $((Get-Culture).TextInfo.ToUpper($Switch)) # TRANSFER"
         Write-Host
 
@@ -45,7 +44,7 @@ Function TransferHandler {
         Write-Host "# $((Get-Culture).TextInfo.ToUpper($Switch)) # TRANSFER"
         Write-Host
 
-        $FileMasks = '.*', '*.php', '*.js', '*.css', '*.txt'
+        $FileMasks = 'assets', '.*', '*.php', '*.js', '*.css', '*.txt', '*.map'
 
         foreach ($Mask in $FileMasks) {
 
@@ -177,7 +176,6 @@ Function ActionHandler {
 
             while ($Done -eq $Null) {
 
-                # $Removal = $Session.RemoveFiles('/.env__del')
                 $Removal = $Session.RemoveFiles('*.*__del')
 
                 if ($Removal.IsSuccess) {
@@ -205,11 +203,11 @@ Function ActionHandler {
 
         if ($State -eq 'Unlink') {
 
-            $Files = $Session.EnumerateRemoteFiles("/$((Get-Culture).TextInfo.ToLower($Switch))", '*', [WinSCP.EnumerationOptions]::None)
+            $Files = $Session.EnumerateRemoteFiles("/$((Get-Culture).TextInfo.ToLower($Switch))", '*', [WinSCP.EnumerationOptions]::MatchDirectories)
 
             foreach ($File in $Files) {
 
-                if ($File.FullName -notmatch "__up$") {
+                if ($File.FullName -notmatch "__up$" -AND $File.FullName -notmatch "metrics" -AND $File.FullName -notmatch "media") {
 
                     $Session.MoveFile($File.FullName, $File.FullName + '__del')
 
@@ -222,7 +220,7 @@ Function ActionHandler {
 
         if ($State -eq 'Link') {
 
-            $Files = $Session.EnumerateRemoteFiles("/$((Get-Culture).TextInfo.ToLower($Switch))", '*', [WinSCP.EnumerationOptions]::None)
+            $Files = $Session.EnumerateRemoteFiles("/$((Get-Culture).TextInfo.ToLower($Switch))", '*', [WinSCP.EnumerationOptions]::MatchDirectories)
 
             foreach ($File in $Files) {
 

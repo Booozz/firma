@@ -13,7 +13,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="<?= url('/assets/favicons/favicon-16x16.png') ?>">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= url('/assets/favicons/favicon-32x32.png') ?>">
     <link rel="icon" type="image/png" sizes="48x48" href="<?= url('/assets/favicons/favicon-48x48.png') ?>">
-    <link rel="manifest" href="<?= url('/assets/favicons/manifest.json') ?>">
+    <link rel="manifest" href="<?= url('/assets/favicons/manifest.json') ?>" crossorigin="use-credentials">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="rgba(0,0,0,0)">
     <meta name="application-name" content="Glas & Gebäudereinigung - Uwe Schramm">

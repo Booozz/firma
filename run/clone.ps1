@@ -1,7 +1,5 @@
 Write-Host '### TASK ### CLONE ###'
 
-$Env:APP_NAME=$Args[0]
-
 # DIAGNOSTICS
 $Timer = [system.diagnostics.stopwatch]::startNew()
 
@@ -22,7 +20,7 @@ try {
 
     $usr = $Config.SESSION_USER
     $hsh = $Config.SESSION_HASH
-    $key = "T:\__configs\M-1\sites\$Env:APP_NAME\auth\production"
+    $key = "T:\__configs\M-1\sites\$Env:npm_package_name\auth\production"
     $pw = $hsh | ConvertTo-SecureString -Key (Get-Content $key)
 
     # OPTIONS
@@ -56,8 +54,8 @@ try {
         $WinSCP.ExecutablePath = $winSCPexec
 
         # LOG
-        $WinSCP.SessionLogPath = $Env:Onedrive + '\_mmrhcs\_logs\_winscp\m1.winscp.' + $Env:APP_NAME + '.clone.log'
-        $WinSCP.DebugLogPath = $Env:Onedrive + '\_mmrhcs\_logs\_winscp\m1.winscp.' + $Env:APP_NAME + '.clone.debug.log'
+        $WinSCP.SessionLogPath = $Env:Onedrive + '\_mmrhcs\_logs\_winscp\m1.winscp.' + $Env:npm_package_name + '.clone.log'
+        $WinSCP.DebugLogPath = $Env:Onedrive + '\_mmrhcs\_logs\_winscp\m1.winscp.' + $Env:npm_package_name + '.clone.debug.log'
         $WinSCP.DebugLogLevel = '-1'
         $WinSCP.add_FileTransferred({LogTransferredFiles($_)})
 
