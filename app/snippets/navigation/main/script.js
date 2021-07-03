@@ -1,6 +1,6 @@
 const Headroom = window.Headroom
 
-class NavigationMain extends window.HTMLElement {
+class NavigationMain extends window.HTMLDivElement {
   constructor (...args) {
     const self = super(...args)
     self.init()
@@ -9,25 +9,21 @@ class NavigationMain extends window.HTMLElement {
 
   init () {
     this.$ = $(this)
-    this.bindFunctions()
-    this.bindEvents()
     this.resolveElements()
-  }
-
-  bindFunctions () {
-    this.toggleMenu = this.toggleMenu.bind(this)
-  }
-
-  bindEvents () {
-    this.$.on('click', '.toggle', this.toggleMenu)
   }
 
   resolveElements () {
     this.$html = $('.app')
-    this.$menu = $('.menu', this)
+    this.$menu = $('[aria-labelledby="menu"]', this)
+    this.$trigger = $('[aria-controls="menu"]', this)
+
+    this.currentWindow = {
+      width: window.innerWidth
+    }
   }
 
   connectedCallback () {
+    const isDesktop = window.matchMedia('(min-width: 1024px)').matches
     const headroom = new Headroom(this.$.get(0), {
       offset: 100,
       tolerance: 0,
@@ -40,12 +36,53 @@ class NavigationMain extends window.HTMLElement {
       }
     })
     headroom.init()
+
+    $(window).on('resize', this.resizeHandler.bind(this))
+
+    if (isDesktop === false) {
+      this.stateHandler('close')
+    }
+
+    this.$.on('click', '[aria-controls="menu"]', this.runNavigation.bind(this))
   }
 
-  toggleMenu (e) {
-    this.$.toggleClass('snippet-isOpen')
-    this.$html.toggleClass('app_menu')
+  runNavigation (e) {
+    const target = e.currentTarget
+
+    if (target.ariaExpanded === 'true') {
+      this.stateHandler('close')
+    } else {
+      this.stateHandler('open')
+    }
+  }
+
+  stateHandler (action) {
+    if (action === 'open') {
+      this.$trigger.attr('aria-expanded', 'true')
+      this.$menu.attr('aria-hidden', 'false')
+      this.$html.addClass('app_menu')
+    }
+    if (action === 'close') {
+      this.$trigger.attr('aria-expanded', 'false')
+      this.$menu.attr('aria-hidden', 'true')
+      this.$html.removeClass('app_menu')
+    }
+  }
+
+  resizeHandler (e) {
+    const w = e.target.innerWidth
+
+    if (this.currentWindow.width <= '1024' && w >= '1024') {
+      this.stateHandler('open')
+    }
+
+    if (this.currentWindow.width >= '1024' && w <= '1024') {
+      this.stateHandler('close')
+    }
+
+    this.currentWindow.width = w
+    return this.currentWindow.width
   }
 }
 
-window.customElements.define('navigation-main', NavigationMain)
+window.customElements.define('navigation-main', NavigationMain, { extends: 'div' })
