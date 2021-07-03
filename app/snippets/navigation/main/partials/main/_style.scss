@@ -8,7 +8,7 @@
     display: flex;
   }
 
-  &-item {
+  &__item {
     margin: 0;
 
     @media (min-width: $breakpoint-m) {
@@ -22,20 +22,21 @@
     &:first-child {
       margin-left: 0;
     }
+
+    .link {
+      font-size: 0.9375rem;
+
+      &,
+      &:visited {
+        color: $c-nav-link;
+        text-decoration: none;
+      }
+
+      &:hover,
+      &:focus {
+        color: $c-nav-hover;
+      }
+    }
   }
 
-  &-link {
-    font-size: 0.9375rem;
-
-    &,
-    &:visited {
-      color: $c-nav-link;
-      text-decoration: none;
-    }
-
-    &:hover,
-    &:focus {
-      color: $c-nav-hover;
-    }
-  }
 }

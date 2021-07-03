@@ -14,6 +14,7 @@ class NavigationMain extends window.HTMLDivElement {
 
   resolveElements () {
     this.$html = $('.app')
+
     this.$menu = $('[aria-labelledby="menu"]', this)
     this.$trigger = $('[aria-controls="menu"]', this)
 
@@ -60,12 +61,12 @@ class NavigationMain extends window.HTMLDivElement {
     if (action === 'open') {
       this.$trigger.attr('aria-expanded', 'true')
       this.$menu.attr('aria-hidden', 'false')
-      this.$html.addClass('app_menu')
+      this.$html.addClass('app--menu')
     }
     if (action === 'close') {
       this.$trigger.attr('aria-expanded', 'false')
       this.$menu.attr('aria-hidden', 'true')
-      this.$html.removeClass('app_menu')
+      this.$html.removeClass('app--menu')
     }
   }
 

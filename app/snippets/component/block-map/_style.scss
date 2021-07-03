@@ -1,4 +1,4 @@
-block-map.snippet {
+[is='block-map'] {
   display: block;
   margin: 4rem 0 0;
 
@@ -34,9 +34,9 @@ block-map.snippet {
 
   .infoWindow {
     &,
-    &-link,
-    &-link:hover,
-    &-link:visited {
+    &__link,
+    &__link:hover,
+    &__link:visited {
       color: #444;
     }
   }

@@ -1,7 +1,7 @@
 const map = []
 const geo = []
 
-class BlockMap extends window.HTMLElement {
+class BlockMap extends window.HTMLDivElement {
   constructor () {
     super()
     this.$ = $(this)
@@ -12,7 +12,7 @@ class BlockMap extends window.HTMLElement {
   }
 }
 
-window.customElements.define('block-map', BlockMap)
+window.customElements.define('block-map', BlockMap, { extends: 'div' })
 
 function initMap () {
   map[0] = new google.maps.Map(document.getElementById('map'), {
@@ -196,7 +196,7 @@ function initMap () {
         position: place.geometry.location
       })
       google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent('<div class="infoWindow"><a class="infoWindow-link" href="https://g.page/schramm-reinigung?gm" target="blank"><strong>' + place.name + '</strong></a><br>' +
+        infowindow.setContent('<div class="infoWindow"><a class="infoWindow__link" href="https://g.page/schramm-reinigung?gm" target="blank"><strong>' + place.name + '</strong></a><br>' +
         place.formatted_address + '</div>')
         infowindow.open(map[0], this)
       })

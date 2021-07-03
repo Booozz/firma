@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?= $kirby->language()->code() ?>" class="app <?= $page->template() ?> theme-default">
+<html lang="<?= $kirby->language()->code() ?>" class="theme-default <?= $page->template() ?> app">
 
   <head>
     <meta charset="utf-8">
@@ -79,9 +79,9 @@
   </head>
 
   <body>
-    <div class="app-main">
+    <div class="app__main">
       <div class="document">
-        <header class="document-header">
+        <header class="document__header">
           <?php snippet('navigation/main/index') ?>
         </header>
-        <section class="document-layout">
+        <section class="document__layout">

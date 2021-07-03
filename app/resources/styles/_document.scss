@@ -12,13 +12,13 @@
     margin: 0;
   }
 
-  &-main {
+  &__main {
     backface-visibility: hidden;
     background-color: $c-bg;
     height: 100%;
   }
 
-  &-side {
+  &__side {
     bottom: 88px;
     display: block;
     left: 0;
@@ -81,12 +81,12 @@
     }
   }
 
-  &-layout {
+  &__layout {
     margin-bottom: auto;
     margin-top: auto;
   }
 
-  &-footer {
+  &__footer {
     background-color: #051d87;
     bottom: 0;
     height: 60px;

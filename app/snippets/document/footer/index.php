@@ -1,6 +1,6 @@
                 </section>
 
-                <footer class="document-footer">
+                <footer class="document__footer">
                   <?php snippet('navigation/footer/index') ?>
                 </footer>
 

@@ -2,12 +2,11 @@
 // LAYOUT
 ////////////////////////////////////////////////////////////////////////////////
 
-// .layout-contact,
-[class|='snippet layout'] {
+[is|='layout'] {
   > section {
-    > [class$='-header'],
-    > [class$='-main'],
-    > [class$='-footer'] {
+    > [class$='__header'],
+    > [class$='__main'],
+    > [class$='__footer'] {
       margin: 1.75rem 0 0;
 
       @media (min-width: $breakpoint-s) {
