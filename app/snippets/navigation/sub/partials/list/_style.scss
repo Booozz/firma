@@ -12,7 +12,7 @@
     @include grid-scale(3, center, 1.25rem, 1.25rem);
   }
 
-  &-item {
+  &__item {
     margin: 0;
 
     @media (max-width: $breakpoint-s) {
@@ -24,7 +24,7 @@
     }
   }
 
-  &-link {
+  .link {
     background-color: $c-bg;
     border: 1px solid #03176e;
     display: block;

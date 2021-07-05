@@ -1,4 +1,4 @@
-block-wysiwyg.snippet {
+[is='block-wysiwyg'] {
   display: block;
   margin: 1.75rem 0 0;
 
@@ -11,7 +11,7 @@ block-wysiwyg.snippet {
   }
 
   .container {
-    .page-layout & {
+    [is='layout-page'] & {
       margin: 0 auto;
       max-width: $global-container-width-l;
       padding: 0 $global-container-padding-s;
@@ -26,7 +26,7 @@ block-wysiwyg.snippet {
       }
     }
 
-    .company .page-layout & {
+    .company [is='layout-page'] & {
       max-width: $global-container-width-m;
     }
   }

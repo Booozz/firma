@@ -1,106 +1,105 @@
 {
-    "name": "firma",
-    "description": "Company Website",
-    "version": "2.0.0",
-    "main": "gulpfile.js",
-    "scripts": {
-        "start": "$env:NODE_ENV = 'development'; .\\run\\start.ps1",
-        "build": "$env:NODE_ENV = 'production'; .\\run\\build.ps1",
-        "build:staging": "$env:NODE_ENV = 'staging'; .\\run\\build.ps1",
-        "clone": ".\\run\\clone.ps1",
-        "deploy": "$env:NODE_ENV = 'production'; .\\run\\deploy.ps1",
-        "deploy:full": "$env:NODE_ENV = 'production'; .\\run\\deploy.ps1 -- full",
-        "deploy:staging": "$env:NODE_ENV = 'staging'; .\\run\\deploy.ps1",
-        "deploy:staging:full": "$env:NODE_ENV = 'staging'; .\\run\\deploy.ps1 -- full"
-    },
-    "devDependencies": {
-        "@vue/component-compiler-utils": "3.2.2",
-        "browser-sync": "2.27.4",
-        "del": "6.0.0",
-        "eslint": "7.29.0",
-        "eslint-config-standard": "16.0.3",
-        "eslint-plugin-import": "2.23.4",
-        "eslint-plugin-node": "11.1.0",
-        "eslint-plugin-promise": "5.1.0",
-        "eslint-plugin-standard": "5.0.0",
-        "favicons": "6.2.2",
-        "gulp": "4.0.2",
-        "gulp-autoprefixer": "8.0.0",
-        "gulp-cache": "1.1.3",
-        "gulp-concat": "2.6.1",
-        "gulp-debug": "4.0.0",
-        "gulp-if": "3.0.0",
-        "gulp-imagemin": "7.1.0",
-        "gulp-rename": "2.0.0",
-        "gulp-sass": "5.0.0",
-        "gulp-terser": "2.0.1",
-        "parcel-bundler": "1.12.5",
-        "sass": "1.35.1",
-        "stylelint": "13.13.1",
-        "stylelint-order": "4.1.0",
-        "stylelint-scss": "3.19.0",
-        "vue-template-compiler": "2.6.14"
-    },
-    "dependencies": {
-        "body-scroll-lock": "3.1.5",
-        "headroom.js": "0.12.0",
-        "jquery": "3.6.0"
-    },
-    "browserslist": {
-        "production": [
-            "> 1%",
-            "last 2 versions",
-            "Firefox ESR"
-        ],
-        "legacyBrowsers": [
-            "> 1%",
-            "last 2 versions",
-            "Firefox ESR"
-        ],
-        "modernBrowsers": [
-            "last 2 Chrome versions",
-            "not Chrome < 60",
-            "last 2 Safari versions",
-            "not Safari < 10.1",
-            "last 2 iOS versions",
-            "not iOS < 10.3",
-            "last 2 Firefox versions",
-            "not Firefox < 54",
-            "last 2 Edge versions",
-            "not Edge < 15"
-        ]
-    },
-    "stylelint": {
-        "extends": "./.stylelintrc",
-        "ignoreFiles": [
-            "dist/**",
-            "backup/**"
-        ]
-    },
-    "eslintConfig": {
-        "env": {
-            "browser": true
-        },
-        "extends": "eslint-config-standard",
-        "rules": {
-            "camelcase": "off",
-            "no-unneeded-ternary": "off",
-            "no-unused-vars": "off",
-            "no-undef": "off",
-            "spaced-comment": "off"
-        }
-    },
-    "eslintIgnore": [
-        "dist/**",
-        "backup/**"
+  "name": "firma",
+  "description": "Company Website",
+  "version": "2.0.0",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "$env:NODE_ENV = 'development'; .\\run\\start.ps1",
+    "build": "$env:NODE_ENV = 'production'; .\\run\\build.ps1",
+    "build:staging": "$env:NODE_ENV = 'staging'; .\\run\\build.ps1",
+    "clone": ".\\run\\clone.ps1",
+    "deploy": "$env:NODE_ENV = 'production'; .\\run\\deploy.ps1",
+    "deploy:full": "$env:NODE_ENV = 'production'; .\\run\\deploy.ps1 -- full",
+    "deploy:staging": "$env:NODE_ENV = 'staging'; .\\run\\deploy.ps1",
+    "deploy:staging:full": "$env:NODE_ENV = 'staging'; .\\run\\deploy.ps1 -- full"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "3.2.2",
+    "browser-sync": "2.27.4",
+    "del": "6.0.0",
+    "eslint": "7.30.0",
+    "eslint-config-standard": "16.0.3",
+    "eslint-plugin-import": "2.23.4",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "5.1.0",
+    "eslint-plugin-standard": "5.0.0",
+    "favicons": "6.2.2",
+    "gulp": "4.0.2",
+    "gulp-autoprefixer": "8.0.0",
+    "gulp-cache": "1.1.3",
+    "gulp-concat": "2.6.1",
+    "gulp-debug": "4.0.0",
+    "gulp-if": "3.0.0",
+    "gulp-imagemin": "7.1.0",
+    "gulp-rename": "2.0.0",
+    "gulp-sass": "5.0.0",
+    "gulp-terser": "2.0.1",
+    "parcel-bundler": "1.12.5",
+    "sass": "1.35.1",
+    "stylelint": "13.13.1",
+    "stylelint-order": "4.1.0",
+    "stylelint-scss": "3.19.0",
+    "vue-template-compiler": "2.6.14"
+  },
+  "dependencies": {
+    "headroom.js": "0.12.0",
+    "jquery": "3.6.0"
+  },
+  "browserslist": {
+    "production": [
+      "> 1%",
+      "last 2 versions",
+      "Firefox ESR"
     ],
-    "author": "Marian Schramm",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/mrnmrhcs/firma/issues"
+    "legacyBrowsers": [
+      "> 1%",
+      "last 2 versions",
+      "Firefox ESR"
+    ],
+    "modernBrowsers": [
+      "last 2 Chrome versions",
+      "not Chrome < 60",
+      "last 2 Safari versions",
+      "not Safari < 10.1",
+      "last 2 iOS versions",
+      "not iOS < 10.3",
+      "last 2 Firefox versions",
+      "not Firefox < 54",
+      "last 2 Edge versions",
+      "not Edge < 15"
+    ]
+  },
+  "stylelint": {
+    "extends": "./.stylelintrc",
+    "ignoreFiles": [
+      "dist/**",
+      "backup/**"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/mrnmrhcs/firma.git"
+    "extends": "eslint-config-standard",
+    "rules": {
+      "camelcase": "off",
+      "no-unneeded-ternary": "off",
+      "no-unused-vars": "off",
+      "no-undef": "off",
+      "spaced-comment": "off"
     }
+  },
+  "eslintIgnore": [
+    "dist/**",
+    "backup/**"
+  ],
+  "author": "Marian Schramm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrnmrhcs/firma/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrnmrhcs/firma.git"
+  }
 }

@@ -36,7 +36,6 @@ module.exports = {
   vendor: {
     dest: 'dist/public',
     src: [
-      'node_modules/body-scroll-lock/lib/bodyScrollLock.js',
       'node_modules/headroom.js/dist/headroom.js',
       'node_modules/jquery/dist/jquery.js'
     ]

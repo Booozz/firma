@@ -1,4 +1,4 @@
-card-contact.snippet {
+[is='card-contact'] {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,8 +6,8 @@ card-contact.snippet {
   .details {
     text-align: right;
 
-    &-tel,
-    &-mail {
+    &__tel,
+    &__mail {
       color: $c-white;
       display: block;
       font-size: 0.9375rem;

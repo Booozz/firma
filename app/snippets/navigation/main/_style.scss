@@ -1,4 +1,4 @@
-navigation-main.snippet {
+[is='navigation-main'] {
   background-color: $c-bg;
   display: flex;
   flex-direction: column;
@@ -49,80 +49,88 @@ navigation-main.snippet {
     display: flex;
     justify-content: space-between;
     line-height: 1.25;
-  }
 
-  .brand {
-    color: $c-nav-link;
-    font-size: 0.9375rem;
-    text-decoration: none;
-    width: 170px;
+    &__brand {
+      color: $c-nav-link;
+      font-size: 0.9375rem;
+      text-decoration: none;
+      width: 170px;
 
-    &:hover,
-    &:focus {
-      text-decoration: underline;
-    }
-  }
-
-  .toggle {
-    background-color: transparent;
-    border: 0;
-    bottom: 20px;
-    color: $c-ico-link;
-    height: 18px;
-    left: $global-container-padding-s;
-    padding: 0;
-    position: fixed;
-    width: 24px;
-    z-index: 99;
-
-    svg {
-      display: block;
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
     }
 
-    &:hover,
-    &:focus {
-      color: $c-ico-hover;
-      cursor: pointer;
-    }
+    &__trigger {
+      background-color: transparent;
+      border: 0;
+      bottom: 20px;
+      color: $c-ico-link;
+      height: 18px;
+      left: $global-container-padding-s;
+      padding: 0;
+      position: fixed;
+      width: 24px;
+      z-index: 99;
 
-    @media (min-width: $breakpoint-xs) {
-      bottom: 24px;
-    }
+      svg {
+        display: block;
+      }
 
-    @media (min-width: $breakpoint-s) {
-      left: $global-container-padding-m;
-    }
+      &:hover,
+      &:focus {
+        color: $c-ico-hover;
+        cursor: pointer;
+      }
 
-    @media (min-width: $breakpoint-m) {
-      display: none;
+      @media (min-width: $breakpoint-xs) {
+        bottom: 24px;
+      }
+
+      @media (min-width: $breakpoint-s) {
+        left: $global-container-padding-m;
+      }
+
+      @media (min-width: $breakpoint-m) {
+        display: none;
+      }
     }
   }
 
   .menu {
-    display: none;
-
-    @at-root navigation-main.snippet.snippet-isOpen .menu {
-      align-items: center;
-      background-color: #051d87;
-      bottom: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      left: 0;
-      line-height: 2.5;
-      position: fixed;
-      right: 0;
-      top: 0;
-      z-index: 77;
+    &[aria-hidden='false'] {
+      @media (max-width: $breakpoint-m) {
+        align-items: center;
+        background-color: #051d87;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        left: 0;
+        line-height: 2.5;
+        opacity: 1;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 77;
+      }
     }
 
-    @media (min-width: $breakpoint-m) {
-      display: flex;
-      justify-content: flex-end;
+    &[aria-hidden='true'] {
+      @media (max-width: $breakpoint-m) {
+        display: none;
+      }
     }
 
-    &-main,
-    &-lang {
+    @at-root .app--menu {
+      @media (max-width: $breakpoint-m) {
+        overflow-y: hidden;
+      }
+    }
+
+    &__main,
+    &__lang {
       width: 140px;
 
       @media (min-width: $breakpoint-m) {
@@ -130,7 +138,7 @@ navigation-main.snippet {
       }
     }
 
-    &-main {
+    &__main {
       @import 'partials/main/style';
 
       @media (min-width: $breakpoint-m) {
@@ -138,7 +146,7 @@ navigation-main.snippet {
       }
     }
 
-    &-lang {
+    &__lang {
       bottom: 18px;
       height: 24px;
       margin: 0;

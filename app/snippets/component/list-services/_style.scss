@@ -1,4 +1,4 @@
-list-services.snippet {
+[is='list-services'] {
   display: block;
   margin: 1.75rem 0 0;
 
@@ -11,7 +11,7 @@ list-services.snippet {
   }
 
   .container {
-    .page-layout & {
+    [is='layout-page'] & {
       margin: 0 auto;
       max-width: $global-container-width-l;
       padding: 0 $global-container-padding-s;
