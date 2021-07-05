@@ -15,8 +15,8 @@ class NavigationMain extends window.HTMLDivElement {
   resolveElements () {
     this.$html = $('.app')
 
-    this.$menu = $('[aria-labelledby="menu"]', this)
     this.$trigger = $('[aria-controls="menu"]', this)
+    this.$menu = $('[aria-labelledby="menu"]', this)
 
     this.currentWindow = {
       width: window.innerWidth
